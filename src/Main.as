@@ -184,7 +184,7 @@
 			criaDict();
 			
 			setChildIndex(legenda, 0);
-			setChildIndex(grupo, 0);
+			stage.setChildIndex(grupo, 0);
 			
 			if (ExternalInterface.available) {
 				initLMSConnection();
