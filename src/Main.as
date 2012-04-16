@@ -57,6 +57,7 @@
 		private var lastCaixa1;
 		private var lastCaixa2;
 		private var grupoAtual:int;
+		private var dictRespostas:Dictionary;
 		
 		public function Main() 
 		{
@@ -184,7 +185,7 @@
 			criaDict();
 			
 			setChildIndex(legenda, 0);
-			stage.setChildIndex(grupo, 0);
+			setChildIndex(grupo, 0);
 			
 			if (ExternalInterface.available) {
 				initLMSConnection();
@@ -321,6 +322,25 @@
 			thumbnailDict[thumbnail15] = imagem15;
 			thumbnailDict[thumbnail16] = imagem16;
 			thumbnailDict[thumbnail17] = imagem17;
+			
+			dictRespostas = new Dictionary();
+			dictRespostas[caixa9] = [thumbnail1, thumbnail2];
+			dictRespostas[caixa10] = [thumbnail1, thumbnail2];
+			dictRespostas[caixa11] = [thumbnail3];
+			dictRespostas[caixa12] = [thumbnail4, thumbnail5];
+			dictRespostas[caixa13] = [thumbnail4, thumbnail5];
+			dictRespostas[caixa14] = [thumbnail6, thumbnail7];
+			dictRespostas[caixa15] = [thumbnail6, thumbnail7];
+			dictRespostas[caixa16] = [thumbnail16, thumbnail17];
+			dictRespostas[caixa17] = [thumbnail16, thumbnail17];
+			dictRespostas[caixa1] = [thumbnail8];
+			dictRespostas[caixa2] = [thumbnail9];
+			dictRespostas[caixa3] = [thumbnail10];
+			dictRespostas[caixa4] = [thumbnail11];
+			dictRespostas[caixa5] = [thumbnail12];
+			dictRespostas[caixa6] = [thumbnail13];
+			dictRespostas[caixa7] = [thumbnail14];
+			dictRespostas[caixa8] = [thumbnail15];
 			
 			caixas = [caixa1, caixa2, caixa3, caixa4, caixa5, caixa6, caixa7, caixa8, caixa9];
 			
@@ -523,7 +543,6 @@
 		}
 		
 		function drop(e:MouseEvent) :void {
-			trace(e.target.dropTarget);
 			dragging.alpha = 1;
 			dragging.gotoAndStop(1);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, drop);
@@ -685,6 +704,9 @@
 				}
 			}
 			
+				trace("alvo: " + alvo.name);
+				trace("dragging: " + dragging.name);
+				
 			removeFilter(null);
 			
 			alvo = null;
@@ -716,7 +738,7 @@
 		{
 			acertos = 0;
 			//for (var i:int = 1; i <= 7; i++) this["texto" + String(i)].visible = false;
-			for (var i:int = 1; i <= 17; i++) if (dictCaixa[this["caixa" + String(i)]] == this["thumbnail" + String(i)]) {
+			for (var i:int = 1; i <= 17; i++) if (dictRespostas[this["caixa" + String(i)]].indexOf(dictCaixa[this["caixa" + String(i)]]) != -1) {
 				acertos++;
 				//if (textDict[this["caixa" + String(i)]] != null) textDict[this["caixa" + String(i)]].visible = true;
 			}
