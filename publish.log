@@ -2,8 +2,7 @@ Copying from /c/Users/Luciano Lucena/Documents/PROJETOS/UNIVESP/GitHub/AI-0148 t
 building file list ... done
 ./
 AI-0148_SCO.zip
-js/ai.js
 swf/AI-0148.swf
 
-sent 1334247 bytes  received 10080 bytes  2688654.00 bytes/sec
-total size is 1473664  speedup is 1.10
+sent 1236920 bytes  received 10085 bytes  2494010.00 bytes/sec
+total size is 1461108  speedup is 1.17
