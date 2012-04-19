@@ -508,6 +508,7 @@
 				this["thumbnail" + String(i)].visible = true;
 				this["thumbnail" + String(i)].x = imagePositions[i].x;
 				this["thumbnail" + String(i)].y = imagePositions[i].y;
+				this["imagem" + String(i)].x = -100;
 				this["thumbnail" + String(i)].gotoAndStop(1);
 				this["imagem" + String(i)].visible = false;
 				if (i >= 9) this["caixa" + String(i)].visible = false;
