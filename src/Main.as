@@ -918,7 +918,7 @@
 				success = scorm.set("cmi.completion_status", (completed ? "completed" : "incomplete"));
 
 				// Salva no LMS o exercício que deve ser exibido quando a AI for acessada novamente.
-				success = scorm.set("cmi.location", scormExercise.toString());
+				//success = scorm.set("cmi.location", scormExercise.toString());
 				
 				// Salva no LMS a string que representa a situação atual da AI para ser recuperada posteriormente.
 				//mementoSerialized = marshalObjects();
@@ -954,6 +954,7 @@
 			if (ExternalInterface.available) {
 				if (connected) {
 					scorm.set("cmi.suspend_data", mementoSerialized);
+					commit();
 				}else {//LocalStorage
 					ExternalInterface.call("save2LS", mementoSerialized);
 				}
