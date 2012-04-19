@@ -424,7 +424,8 @@
 			object.lastGrupo = lastGrupo;
 			object.grupoAtual = grupoAtual;
 			object.grupoVisible = grupo.visible;
-			object.lastCaixa1 = lastCaixa1.name;
+			if (lastCaixa1 != null) object.lastCaixa1 = lastCaixa1.name;
+			else object.lastCaixa1 = "null";
 			if (lastCaixa2 != null) object.lastCaixa2 = lastCaixa2.name;
 			else object.lastCaixa2 = "null";
 			
@@ -473,7 +474,7 @@
 			lastGrupo = int(statusAI.lastGrupo);
 			grupoAtual = int(statusAI.grupoAtual);
 			grupo.visible = statusAI.grupoVisible;
-			lastCaixa1 = this[statusAI.lastCaixa1];
+			if (statusAI.lastCaixa1 != "null") lastCaixa1 = this[statusAI.lastCaixa1];
 			if (statusAI.lastCaixa2 != "null") lastCaixa2 = this[statusAI.lastCaixa2];
 			grupo.gotoAndStop(grupoAtual + 1);
 			setChildIndex(grupo, 0);
@@ -918,7 +919,7 @@
 				success = scorm.set("cmi.completion_status", (completed ? "completed" : "incomplete"));
 
 				// Salva no LMS o exercício que deve ser exibido quando a AI for acessada novamente.
-				//success = scorm.set("cmi.location", scormExercise.toString());
+				success = scorm.set("cmi.location", scormExercise.toString());
 				
 				// Salva no LMS a string que representa a situação atual da AI para ser recuperada posteriormente.
 				//mementoSerialized = marshalObjects();
