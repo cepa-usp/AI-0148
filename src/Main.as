@@ -490,7 +490,7 @@
 				this["imagem" + String(i)].visible = false;
 			}
 			
-			for (i = 1; i <= 18; i++) {
+			for (i = 9; i <= 18; i++) {
 				this["caixa" + String(i)].visible = false;
 			}
 			
