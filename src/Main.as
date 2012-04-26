@@ -160,9 +160,11 @@
 			
 			grupo.visible = true;
 			grupo.gotoAndStop(grupoAtual + 1);
+			
+			for (var i:int = 1; i <= 5; i++) this["grupo" + String(i)].barra.filters = [];
 			this["grupo" + String(grupoAtual)].barra.filters = [GLOW_FILTER];
 			
-			for (var i:int = 9; i <= 18; i++) this["caixa" + String(i)].visible = false;
+			for (i = 9; i <= 18; i++) this["caixa" + String(i)].visible = false;
 			
 			if (lastGrupo != 0) {
 				if (thumbnailDict[dictCaixa[caixasGruposDict[lastGrupo][0]]] != null) thumbnailDict[dictCaixa[caixasGruposDict[lastGrupo][0]]].visible = false;
@@ -182,6 +184,8 @@
 		private function mouseOut(e:MouseEvent):void 
 		{
 			if (lastGrupo != grupoAtual) this["grupo" + String(grupoAtual)].barra.filters = [];
+			
+			if (lastGrupo != 0) this["grupo" + String(lastGrupo)].barra.filters = [GLOW_FILTER];
 			
 			for (var i:int = 9; i <= 18; i++) this["caixa" + String(i)].visible = false;
 			if (thumbnailDict[dictCaixa[caixasGruposDict[grupoAtual][0]]] != null) thumbnailDict[dictCaixa[caixasGruposDict[grupoAtual][0]]].visible = false;
