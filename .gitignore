@@ -1,0 +1,9 @@
+# Arquivos gerados pelo FlashDevelop
+/bin
+
+# Configurações antigas do projeto FlashDevelop
+/obj/*.old
+
+# Arquivos de log
+*.log
+
