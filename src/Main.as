@@ -339,7 +339,7 @@
 			
 			caixasGruposDict = new Dictionary();
 			caixasGruposDict[1] = [caixa9, caixa10];
-			caixasGruposDict[2] = [caixa11, caixa18];
+			caixasGruposDict[2] = [caixa11];
 			caixasGruposDict[3] = [caixa12, caixa13];
 			caixasGruposDict[4] = [caixa14, caixa15];
 			caixasGruposDict[5] = [caixa16, caixa17];
