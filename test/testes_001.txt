@@ -1,0 +1,89 @@
+Ambiente: ScormCloud
+Navegador: Google Chrome
+O.S: Windows XP
+
+CS1: Preencher todos os campos e avaliar - acertar todos 							[OK] [OBS]
+	1. Preencher todos
+	2. Botão terminar
+	3. Voltar ao ambiente e verificar variáveis SCORM
+	
+	resultado esperado:
+		cmi.score_raw: 100					
+		cmi.score_min: 0					
+		cmi.score_max: 100					
+		cmi.completion_status: completed			
+		
+		OBS: Objetos podem ser movidos após execução; botão Terminei pode ser apertado mais de uma vez;
+		Avaliação ao apertar o botão em uma segunda vez (sem reiniciar o exercício) dá sempre a primeira resposta.
+		Procedimento para refazer o teste:
+			1. preencha tudo corretamente, clique avaliar
+			2. troque de lugar alguns elementos e clique novamente		
+		
+
+*******************************************************************
+
+CS2: Rodar a atividade uma segunda vez										[OBS]
+	dependêcia: CS1
+
+	1. Lançar novamente a atividade
+			resultado esperado: ver objetos 					
+			reposicionados e travados
+	2. Apertar terminar
+			resultado esperado: ver mensagem sem reavaliar		
+	3. Voltar ao ambiente e verificar variáveis SCORM
+			resultado esperado: igual CS1						
+			
+	OBS:
+	- Variável "cmi.score_raw" está computando o valor da última nota alcançada. 
+		O objetivo é utilizar a média ou está correto dessa forma?
+	
+	
+		
+*******************************************************************
+		
+CS3: Preencher todos os campos e avaliar - errar 1 elemento					[OK]
+
+	1. Preencher todos, errando um
+	2. Botão terminar
+	3. Verificar Scorm
+	
+	resultado esperado:
+		cmi.score_raw: <100					
+		cmi.score_min: 0					
+		cmi.score_max: 100					
+		cmi.completion_status: completed	
+		
+*******************************************************************
+
+CS4: Revisão dos créditos														[OBS]
+
+	Obs.: Acrescentar "Arthur Tofani" em testes
+	
+		
+*******************************************************************
+
+CS5: Revisão das orientações												[OBS]
+	1. Leitura do texto
+	
+	Obs.: 
+	Linha 3: Está escrito "interseção". Está correto? Ou o correto seria "intersecção" ?
+	
+
+*******************************************************************		
+		
+CS6: Caixas de mensagem:													[OK]
+
+	1. Leitura do texto
+	
+
+
+********************************************************************
+
+CS7: Testes exploratórios
+
+problemas encontrados:
+- Os textos do cladograma estão selecionáveis
+- IMSManifest registra atividade como "Título", "Exercício"
+
+
+	
