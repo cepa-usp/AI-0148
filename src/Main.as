@@ -60,6 +60,7 @@
 		private var grupoAtual:int;
 		private var dictRespostas:Dictionary;
 		private var tempGrupo:int;
+		private var tentativasArray:Array = new Array();
 		
 		public function Main() 
 		{
@@ -136,6 +137,10 @@
 			for (i = 9; i <= 18; i++ ) {
 				setChildIndex(this["caixa" + String(i)], 2);
 				this["caixa" + String(i)].visible = false;
+			}
+			
+			for (i = 0; i <= 18; i++ ) {
+				tentativasArray[i] = 0;
 			}
 			
 			criaDict();
@@ -394,7 +399,16 @@
 				else strAlvosUsados += (alvosUsados[i].name + ";");
 			}
 			
+			// Transforma o Array "tentativasArray" num Object
+			/*var strTentativasArray:String = "";
+			for (i = 0; i < tentativasArray.length; i++) 
+			{
+				if (i == tentativasArray.length - 1) strTentativasArray += (tentativasArray[i].name);
+				else strTentativasArray += (tentativasArray[i].name + ";");
+			}*/
+			
 			object.alvosUsados = strAlvosUsados;
+			//object.tentativasArray = strTentativasArray;
 			object.movimentos = movimentos;
 			object.acertos = acertos;
 			object.lastGrupo = lastGrupo;
@@ -449,6 +463,13 @@
 				alvosUsados.push(this[arrayAlvos[i]]);
 			}
 			
+			// Transforma o Object "statusAI.tentativasArray" em um Array
+			/*var arrayTentativas:Array = String(statusAI.tentativasArray).split(";");
+			for (i = 0; i < arrayTentativas.length; i++) 
+			{
+				tentativasArray.push(this[arrayTentativas[i]]);
+			}*/
+			
 			movimentos = statusAI.movimentos;
 			acertos = statusAI.acertos;
 			lastGrupo = int(statusAI.lastGrupo);
@@ -496,6 +517,9 @@
 			
 			for (i = 9; i <= 18; i++) {
 				this["caixa" + String(i)].visible = false;
+				this["caixa" + String(i)].enabled = true;
+				this["caixa" + String(i)].gotoAndStop(1);
+				tentativasArray[i] = 0;
 			}
 			
 			alvosUsados = new Array();
@@ -560,7 +584,7 @@
 			var thumbnail_origem:DisplayObject = dragging;
 			var caixa_destino:DisplayObject = alvo;
 			var caixa_destino_preenchida:Boolean = (dictCaixa[caixa_destino] != null);
-			var index:int ;
+			var index:int;
 			
 			// ORIGEM: nada (biblioteca)
 			if (caixa_origem == null) {
@@ -617,7 +641,7 @@
 				trace(dragging.name + " --> " + (dictImage[dragging] ? dictImage[dragging].name : null));
 				
 				// ORIGEM: biblioteca
-				if (dictCaixa[alvo] == null && dictImage[dragging] == null) {
+				// luciano if (dictCaixa[alvo] == null && dictImage[dragging] == null) {
 					trace("ORIGEM: biblioteca");
 					movimentos++;
 					thumbnailDict[dragging].x = alvo.x;
@@ -627,8 +651,27 @@
 					dictCaixa[alvo] = dragging;
 					dictImage[dragging] = alvo;
 					
+					// Verifica se soltou no alvo certo
+					if (dictRespostas[alvo].indexOf(dictCaixa[alvo]) != -1) {
+						alvo.enabled = false;
+						thumbnailDict[dragging].buttonMode = false;
+						thumbnailDict[dragging].removeEventListener(MouseEvent.MOUSE_DOWN, drag);
+					} else {
+						tweenX = new Tween(thumbnailDict[dragging], "x", None.easeNone, thumbnailDict[dragging].x, imagePositions[images.indexOf(dragging)].x, 0.2, true);
+						tweenY = new Tween(thumbnailDict[dragging], "y", None.easeNone, thumbnailDict[dragging].y, imagePositions[images.indexOf(dragging)].y, 0.2, true);
+						dictCaixa[alvo] = null;
+						dictImage[dragging] = null;
+						movimentos--;
+						tentativasArray[int(alvo.name.slice(5, 7))]++;
+						if (tentativasArray[int(alvo.name.slice(5, 7))] >= 3) {
+							alvo.enabled = false;
+							alvo.gotoAndStop(2);
+							movimentos++;
+						}
+					}
+					
 				// ORIGEM: alguma caixa
-				} else {
+				/* luciano } else {
 					
 					//Alguma peça no alvo
 					if (dictImage[dragging] == null) {
@@ -708,7 +751,12 @@
 					//vindo do lugar inicial
 					tweenX = new Tween(dragging, "x", None.easeNone, dragging.x, posFinal.x, 0.2, true);
 					tweenY = new Tween(dragging, "y", None.easeNone, dragging.y, posFinal.y, 0.2, true);
-				}
+				}*/
+			} else { // luciano
+				tweenX = new Tween(dragging, "x", None.easeNone, dragging.x, imagePositions[images.indexOf(dragging)].x, 0.2, true);
+				tweenY = new Tween(dragging, "y", None.easeNone, dragging.y, imagePositions[images.indexOf(dragging)].y, 0.2, true);
+				dictCaixa[alvo] = null;
+				dictImage[dragging] = null;
 			}
 			
 			removeFilter(null);
@@ -717,10 +765,10 @@
 			
 			verifyAICompletion();
 			
-			for each (var caixa in caixas) {
+			/*for each (var caixa in caixas) {
 				if (alvosUsados.indexOf(caixa) != -1) caixa.alpha = 0;
 				else caixa.alpha = 1;
-			}
+			}*/
 			
 			caixa_origem = null;
 			
@@ -778,7 +826,7 @@
 				peca = this["caixa" + String(i)];
 				//if (peca == dragging) continue;
 				
-				if (peca.hitTestPoint(dragging.x, dragging.y) && peca.visible) {
+				if (peca.hitTestPoint(dragging.x, dragging.y) && peca.visible && peca.enabled) {
 					if (peca.filters.length == 0) peca.filters = [GLOW_FILTER];
 					//setChildIndex(peca, Math.max(0, getChildIndex(dragging) - 1));
 					removeFilter(peca);
