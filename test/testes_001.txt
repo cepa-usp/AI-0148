@@ -2,7 +2,7 @@ Ambiente: ScormCloud
 Navegador: Google Chrome
 O.S: Windows XP
 
-CS1: Preencher todos os campos e avaliar - acertar todos 							[OK] [OBS]
+CS1: Preencher todos os campos e avaliar - acertar todos 							[OK] 
 	1. Preencher todos
 	2. Botão terminar
 	3. Voltar ao ambiente e verificar variáveis SCORM
@@ -13,29 +13,26 @@ CS1: Preencher todos os campos e avaliar - acertar todos 							[OK] [OBS]
 		cmi.score_max: 100					
 		cmi.completion_status: completed			
 		
-		OBS: Objetos podem ser movidos após execução; botão Terminei pode ser apertado mais de uma vez;
-		Avaliação ao apertar o botão em uma segunda vez (sem reiniciar o exercício) dá sempre a primeira resposta.
-		Procedimento para refazer o teste:
-			1. preencha tudo corretamente, clique avaliar
-			2. troque de lugar alguns elementos e clique novamente		
-		
+	
 
 *******************************************************************
 
-CS2: Rodar a atividade uma segunda vez										[OBS]
+CS2: Rodar a atividade uma segunda vez										[NOK]
 	dependêcia: CS1
 
 	1. Lançar novamente a atividade
-			resultado esperado: ver objetos 					
+			resultado esperado: ver objetos 							OK
 			reposicionados e travados
 	2. Apertar terminar
-			resultado esperado: ver mensagem sem reavaliar		
-	3. Voltar ao ambiente e verificar variáveis SCORM
+			resultado esperado: ver mensagem sem reavaliar				OK	
+	3. Tentar mover os elementos da tela
+			resultado esperado: eles estão travados e não se moverão	NOK
+	4. Voltar ao ambiente e verificar variáveis SCORM
 			resultado esperado: igual CS1						
 			
 	OBS:
-	- Variável "cmi.score_raw" está computando o valor da última nota alcançada. 
-		O objetivo é utilizar a média ou está correto dessa forma?
+		no passo #3 :
+			os elementos podem ser removidos de suas posições, criando situações estranhas
 	
 	
 		
@@ -48,21 +45,39 @@ CS3: Preencher todos os campos e avaliar - errar 1 elemento					[OK]
 	3. Verificar Scorm
 	
 	resultado esperado:
-		cmi.score_raw: <100					
-		cmi.score_min: 0					
-		cmi.score_max: 100					
-		cmi.completion_status: completed	
+		cmi.score_raw: <100					ok
+		cmi.score_min: 0					ok
+		cmi.score_max: 100					ok
+		cmi.completion_status: completed	ok
 		
 *******************************************************************
 
-CS4: Revisão dos créditos														[OBS]
+		
+CS4: Funcionamento do botão reset											[NOK]
+
+	1. Preencher todos e apertar "terminei"	
+	2. Apertar reset	
+	3. Verificar se campos foram liberados
+		resultado esperado: campos estão liberados e devem poder receber respostas válidas		nok
+	4. 
+	
+	OBS:
+		no passo #3 :
+			- os campos marcados anteriormente com "X", ou seja, onde não se poderia mais preencher, continuam bloqueados após reset.
+			- outros campos voltam em branco, porém bloqueados também.
+		
+	
+			
+*******************************************************************		
+
+CS5: Revisão dos créditos													[OBS]
 
 	Obs.: Acrescentar "Arthur Tofani" em testes
 	
 		
 *******************************************************************
 
-CS5: Revisão das orientações												[OBS]
+CS6: Revisão das orientações												[OBS]
 	1. Leitura do texto
 	
 	Obs.: 
@@ -71,7 +86,7 @@ CS5: Revisão das orientações												[OBS]
 
 *******************************************************************		
 		
-CS6: Caixas de mensagem:													[OK]
+CS7: Caixas de mensagem:													[OK]
 
 	1. Leitura do texto
 	
@@ -79,7 +94,7 @@ CS6: Caixas de mensagem:													[OK]
 
 ********************************************************************
 
-CS7: Testes exploratórios
+CS8: Testes exploratórios
 
 problemas encontrados:
 - Os textos do cladograma estão selecionáveis
