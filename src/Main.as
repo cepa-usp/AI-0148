@@ -134,12 +134,10 @@
 			
 			background.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 			
-			for (i = 9; i <= 18; i++ ) {
+			tentativasArray[0] = 0;
+			for (i = 1; i <= 18; i++ ) {
+				if (i >= 9) this["caixa" + String(i)].visible = false;
 				setChildIndex(this["caixa" + String(i)], 2);
-				this["caixa" + String(i)].visible = false;
-			}
-			
-			for (i = 0; i <= 18; i++ ) {
 				tentativasArray[i] = 0;
 			}
 			
@@ -400,15 +398,15 @@
 			}
 			
 			// Transforma o Array "tentativasArray" num Object
-			/*var strTentativasArray:String = "";
+			var strTentativasArray:String = "";
 			for (i = 0; i < tentativasArray.length; i++) 
 			{
-				if (i == tentativasArray.length - 1) strTentativasArray += (tentativasArray[i].name);
-				else strTentativasArray += (tentativasArray[i].name + ";");
-			}*/
+				if (i == tentativasArray.length - 1) strTentativasArray += (String(tentativasArray[i]));
+				else strTentativasArray += (String(tentativasArray[i]) + ";");
+			}
 			
 			object.alvosUsados = strAlvosUsados;
-			//object.tentativasArray = strTentativasArray;
+			object.tentativasArray = strTentativasArray;
 			object.movimentos = movimentos;
 			object.acertos = acertos;
 			object.lastGrupo = lastGrupo;
@@ -449,7 +447,6 @@
 			for (i = 1; i <= 18; i++) 
 			{
 				var caixa:MovieClip = this["caixa" + String(i)];
-				
 				if (statusAI.caixas[caixa.name].image != "null") dictCaixa[caixa] = this[statusAI.caixas[caixa.name].image];
 				caixa.visible = statusAI.caixas[caixa.name].visible;
 				caixa.x = statusAI.caixas[caixa.name].x;
@@ -464,11 +461,24 @@
 			}
 			
 			// Transforma o Object "statusAI.tentativasArray" em um Array
-			/*var arrayTentativas:Array = String(statusAI.tentativasArray).split(";");
+			var arrayTentativas:Array = String(statusAI.tentativasArray).split(";");
 			for (i = 0; i < arrayTentativas.length; i++) 
 			{
-				tentativasArray.push(this[arrayTentativas[i]]);
-			}*/
+				tentativasArray[i] = int(arrayTentativas[i]);
+				
+				if (tentativasArray[i] == 3) {
+					this["caixa" + String(i)].gotoAndStop(2);
+					this["caixa" + String(i)].enabled = false;
+				}
+			}
+			
+			for (i = 1; i <= 18; i++) {
+				if (dictCaixa[this["caixa" + String(i)]] != undefined) {
+					dictImage[dictCaixa[this["caixa" + String(i)]]].enabled = false;
+					dictCaixa[this["caixa" + String(i)]].mouseEnabled = false;
+					thumbnailDict[dictCaixa[this["caixa" + String(i)]]].mouseEnabled = false;
+				}
+			}
 			
 			movimentos = statusAI.movimentos;
 			acertos = statusAI.acertos;
@@ -477,7 +487,7 @@
 			grupo.visible = statusAI.grupoVisible;
 			if (statusAI.lastCaixa1 != "null") lastCaixa1 = this[statusAI.lastCaixa1];
 			if (statusAI.lastCaixa2 != "null") lastCaixa2 = this[statusAI.lastCaixa2];
-			grupo.gotoAndStop(grupoAtual + 1);
+			grupo.gotoAndStop(lastGrupo + 1);
 			setChildIndex(grupo, 1);
 			
 			verifyAICompletion();
@@ -511,15 +521,21 @@
 				this["thumbnail" + String(i)].x = imagePositions[i].x;
 				this["thumbnail" + String(i)].y = imagePositions[i].y;
 				this["imagem" + String(i)].x = -100;
-				this["thumbnail" + String(i)].gotoAndStop(1);
+				this["caixa" + String(i)].gotoAndStop(1);
 				this["imagem" + String(i)].visible = false;
+				this["thumbnail" + String(i)].mouseEnabled = true;
+				this["imagem" + String(i)].mouseEnabled = true;
 			}
 			
-			for (i = 9; i <= 18; i++) {
+			for (i = 9; i <= 17; i++) {
 				this["caixa" + String(i)].visible = false;
 				this["caixa" + String(i)].enabled = true;
 				this["caixa" + String(i)].gotoAndStop(1);
 				tentativasArray[i] = 0;
+			}
+			
+			for (i = 1; i <= 5; i++) {
+				this["grupo" + String(i)].barra.filters = [];
 			}
 			
 			alvosUsados = new Array();
